@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Style Sheet -->
+     <link rel="stylesheet" href="./style.css">
+    <title>Cart Shopping</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Products</h1>
+        <div class="product-list">
+            <li>
+                Product 1 - $<span>29.99</span>
+                <button class="btn btn-1 addToCart">Add to Cart</button>
+            </li>
+            <li>
+                Product 2 - $<span>29.99</span>
+                <button class="btn btn-2 addToCart">Add to Cart</button>
+            </li>
+            <li>
+                Product 3 - $<span>29.99</span>
+                <button class="btn btn-3 addToCart">Add to Cart</button>
+            </li>
+        </div>
+
+        <div class="shopping_cart">
+            <h1>Shopping Cart</h1>
+            <li class="cart-empty">Your cart is empty.</li>
+
+            <div class="show_cart"> <!-- product and price will come --> </div> 
+
+            <hr>
+
+            <div class="total_price">
+                <span></span>
+                <button id="checkout" class="btn">Checkout</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- https://github.com/haritech005 -->
+    <!-- Js File -->
+     <script src="./script.js"></script>
+</body>
+
+</html>
