@@ -42,3 +42,5 @@ function displayCart(price, NameOfProduct) {
 function showTotalPrice(cartTotalPrice){
     totalPrice.textContent = `Total : $${cartTotalPrice}`;
 }
+
+
