@@ -1,10 +1,10 @@
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const showCart = document.querySelector(".show_cart");
     const totalPrice = document.querySelector(".total_price span");
     const addToCart = document.querySelectorAll(".addToCart");
 
-    let cartTotalPrice = 0;
     let Products = JSON.parse(localStorage.getItem("Products")) || [];
     Products.forEach((Product) => displayDataFromLocalStorage(Product));
 
@@ -18,16 +18,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 const NameOfProduct = li.substring(0, 10);
 
                 const Product = {
-                    "product_name": NameOfProduct,
+                    "product_name": NameOfProduct.trim(),
                     "price": price
                 }
 
+                
                 Products.push(Product);
+
                 displayDataFromLocalStorage(Product)
+                showTotalPrice();
                 addInLocalStorage();
+
                 // displayCart(price, NameOfProduct);
             })
         })
+
 
     }
 
@@ -50,8 +55,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // };
 
-    function showTotalPrice(cartTotalPrice) {
+    function showTotalPrice() {
+        let cartTotalPrice = 0;
+        Products.forEach((Product) => {
+            cartTotalPrice += Number.parseInt(Product.price);
+        })
         totalPrice.textContent = `Total : $${cartTotalPrice}`;
+        console.log("Total Price: ", cartTotalPrice);
+
     }
 
     function addInLocalStorage() {
@@ -62,15 +73,30 @@ document.addEventListener("DOMContentLoaded", () => {
     function displayDataFromLocalStorage(Product) {
 
         const li = document.createElement("li")
-
         li.innerHTML = `
                 <li>${Product.product_name} - $${Product.price}</li>
+                <button class="remove">X</button>
         `
         showCart.appendChild(li)
 
-        cartTotalPrice += Number.parseInt(Product.price);
+        const removeButton = li.querySelector(".remove"); removeButton.addEventListener("click", (e) => {
+            removeDataFromLocalStorageAndUpdate(removeButton, e);
+        })
 
-        showTotalPrice(cartTotalPrice);
+    }
+
+    function removeDataFromLocalStorageAndUpdate(btn, e) {
+        console.log(e); // check target
+        
+        const removeParentElement = btn.parentElement;
+        const liElemText = btn.parentElement.textContent.trim();
+        const trimliElemText = liElemText.substring(0, 10).trim();
+
+        Products = Products.filter(Product => Product.product_name !== trimliElemText);
+
+        removeParentElement.remove();
+        addInLocalStorage()
+        showTotalPrice()
     }
 
 })

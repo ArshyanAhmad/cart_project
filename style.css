@@ -83,7 +83,7 @@ html{
 .container .show_cart li{
     background-color: transparent;
     gap: 0px !important;
-    margin: 0 !important;
+    margin: 3px 0px !important;
     padding-top: 2px ;
 }
 
@@ -112,4 +112,24 @@ html{
     cursor: pointer;
     background-color: red;
     border-color: red;
+}
+
+.remove{
+    font-family: sans-serif;
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+    border-radius: 50px;
+    background-color: red;    
+    color: white;
+    outline: none;
+    border: 1px solid #e5d7d7;
+    transition: all .2s ease;
+}
+
+.remove:hover{
+    cursor: pointer;
+    background-color: rgb(234, 47, 47);
+    color: #b8b3b3;
+    scale: 1.16;
 }
