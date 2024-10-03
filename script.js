@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const addToCart = document.querySelectorAll(".addToCart");
 
     let Products = JSON.parse(localStorage.getItem("Products")) || [];
-
+    // Products display 
     Products.forEach((Product) => displayDataFromLocalStorage(Product));
 
     function productDetails() {
