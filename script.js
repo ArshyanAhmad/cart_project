@@ -45,7 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     productDetails()
 
-    // Only display the data but after reload the data will removed so, i store data in local storage
+    // This function only display the products in web page if you reload the browser then the products will remove.
+    // so, I stored the data in local storage
+    
     // function displayCart(price, NameOfProduct) {
     //     let priceInNumber = Number.parseInt(price)
 
