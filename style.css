@@ -17,7 +17,6 @@ html{
 }
 
 .container{
-    height: 100%;
     width: 500px;
     background-color: rgb(46, 57, 53);
     border: 1px solid rgb(46, 57, 53);
@@ -79,6 +78,9 @@ html{
     color: rgb(213, 204, 204);
 }
 
+.show_cart{
+    padding-top: 20px;
+}
 
 .container .show_cart li{
     background-color: transparent;
@@ -132,4 +134,8 @@ html{
     background-color: rgb(234, 47, 47);
     color: #b8b3b3;
     scale: 1.16;
+}
+
+.hidden{
+    display: none !important;
 }

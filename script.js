@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const addToCart = document.querySelectorAll(".addToCart");
 
     let Products = JSON.parse(localStorage.getItem("Products")) || [];
+
     Products.forEach((Product) => displayDataFromLocalStorage(Product));
 
     function productDetails() {
@@ -18,16 +19,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 const NameOfProduct = li.substring(0, 10);
 
                 const Product = {
+                    "id": Date.now(),
                     "product_name": NameOfProduct.trim(),
                     "price": price
                 }
 
-                
-                Products.push(Product);
+                if (Products) {
+                    let productExists = Products.some(prod => prod.product_name === Product.product_name);
 
-                displayDataFromLocalStorage(Product)
-                showTotalPrice();
-                addInLocalStorage();
+                    if (!productExists) {
+                        Products.push(Product); // Add product only if it doesn't exist
+                        addInLocalStorage();
+                        displayDataFromLocalStorage(Product)
+                        showTotalPrice();
+                    }
+                }
+
 
                 // displayCart(price, NameOfProduct);
             })
@@ -56,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // };
 
     function showTotalPrice() {
+
         let cartTotalPrice = 0;
         Products.forEach((Product) => {
             cartTotalPrice += Number.parseInt(Product.price);
@@ -73,30 +81,40 @@ document.addEventListener("DOMContentLoaded", () => {
     function displayDataFromLocalStorage(Product) {
 
         const li = document.createElement("li")
+        li.setAttribute('data-id', Product.id)
         li.innerHTML = `
-                <li>${Product.product_name} - $${Product.price}</li>
+                <li >${Product.product_name} - $${Product.price}</li>
                 <button class="remove">X</button>
         `
+
+        document.querySelector(".cart-empty").classList.add("hidden");
         showCart.appendChild(li)
 
-        const removeButton = li.querySelector(".remove"); removeButton.addEventListener("click", (e) => {
-            removeDataFromLocalStorageAndUpdate(removeButton, e);
+        const removeButton = li.querySelector(".remove"); removeButton.addEventListener("click", () => {
+            removeDataFromLocalStorageAndUpdate(removeButton);
         })
 
     }
 
-    function removeDataFromLocalStorageAndUpdate(btn, e) {
-        console.log(e); // check target
-        
-        const removeParentElement = btn.parentElement;
-        const liElemText = btn.parentElement.textContent.trim();
-        const trimliElemText = liElemText.substring(0, 10).trim();
+    function removeDataFromLocalStorageAndUpdate(btn) {
 
-        Products = Products.filter(Product => Product.product_name !== trimliElemText);
+        const removeParentElement = btn.parentElement;
+
+        let numberDataId = Number.parseInt(removeParentElement.getAttribute("data-id"));
+
+        Products = Products.filter(Product => Product.id !== numberDataId);
 
         removeParentElement.remove();
+
         addInLocalStorage()
+
+        const storedProduct = JSON.parse(localStorage.getItem("Products"));
+
         showTotalPrice()
+
+        if (storedProduct.length === 0) {
+            document.querySelector(".cart-empty").classList.remove("hidden");
+        }
     }
 
 })
